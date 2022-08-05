@@ -78,9 +78,7 @@ function(add_cpp_test FILE_NAME)
   target_compile_features(${TEST_NAME} PRIVATE cxx_std_17)
   target_link_libraries(${TEST_NAME} PRIVATE
     Catch2 Catch2WithMain
-    ${PROJECT_NAMESPACE}::Foo
-    ${PROJECT_NAMESPACE}::Bar
-    ${PROJECT_NAMESPACE}::FooBar)
+    ${PROJECT_NAMESPACE}::squirrel3)
 
   if(BUILD_TESTING)
     add_test(NAME cpp_${COMPONENT_NAME}_${TEST_NAME} COMMAND ${TEST_NAME})
@@ -88,10 +86,7 @@ function(add_cpp_test FILE_NAME)
   message(STATUS "Configuring test ${FILE_NAME}: ...DONE")
 endfunction()
 
-add_subdirectory(Foo)
-add_subdirectory(Bar)
-add_subdirectory(FooBar)
-add_subdirectory(FooBarApp)
+add_subdirectory(squirrel3)
 
 # Install
 install(EXPORT ${PROJECT_NAME}Targets
@@ -137,9 +132,7 @@ function(add_cpp_example FILE_NAME)
   target_include_directories(${EXAMPLE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
   target_compile_features(${EXAMPLE_NAME} PRIVATE cxx_std_17)
   target_link_libraries(${EXAMPLE_NAME} PRIVATE
-    ${PROJECT_NAMESPACE}::Foo
-    ${PROJECT_NAMESPACE}::Bar
-    ${PROJECT_NAMESPACE}::FooBar)
+    ${PROJECT_NAMESPACE}::squirrel3)
 
   include(GNUInstallDirs)
   install(TARGETS ${EXAMPLE_NAME})

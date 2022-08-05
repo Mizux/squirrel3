@@ -3,16 +3,16 @@
 #include <numeric>
 #include <string>
 
-#include <bar/Bar.hpp>
+#include <squirrel3/squirrel3.hpp>
 
-namespace bar {
+namespace squirrel3 {
 
-TEST_CASE("Bar free function", "[Bar]") {
+TEST_CASE("squirrel3 free function", "[squirrel3]") {
   SECTION("Int Function") { REQUIRE_NOTHROW(freeFunction(42)); }
   SECTION("Int64_t Function") { REQUIRE_NOTHROW(freeFunction(int64_t{42})); }
 }
 
-TEST_CASE("String Vector usage", "[Bar]") {
+TEST_CASE("String Vector usage", "[squirrel3]") {
   SECTION("Vector of String Output") {
     std::vector<std::string> result;
     REQUIRE_NOTHROW(result = stringVectorOutput(8));
@@ -35,7 +35,7 @@ TEST_CASE("String Vector usage", "[Bar]") {
   }
 }
 
-TEST_CASE("String Jagged Array usage", "[Bar]") {
+TEST_CASE("String Jagged Array usage", "[squirrel3]") {
   SECTION("Jagged Array of String Output") {
     std::vector<std::vector<std::string>> result;
     REQUIRE_NOTHROW(result = stringJaggedArrayOutput(8));
@@ -64,7 +64,7 @@ TEST_CASE("String Jagged Array usage", "[Bar]") {
   }
 }
 
-TEST_CASE("Pair Vector usage", "[Bar]") {
+TEST_CASE("Pair Vector usage", "[squirrel3]") {
   SECTION("Vector of Pair Output") {
     std::vector<std::string> result;
     REQUIRE_NOTHROW(result = stringVectorOutput(8));
@@ -87,7 +87,7 @@ TEST_CASE("Pair Vector usage", "[Bar]") {
   }
 }
 
-TEST_CASE("Pair Jagged Array usage", "[Bar]") {
+TEST_CASE("Pair Jagged Array usage", "[squirrel3]") {
   SECTION("Jagged Array of Pair Output") {
     std::vector<std::vector<std::pair<int, int>>> result;
     REQUIRE_NOTHROW(result = pairJaggedArrayOutput(8));
@@ -116,40 +116,40 @@ TEST_CASE("Pair Jagged Array usage", "[Bar]") {
   }
 }
 
-TEST_CASE("Bar static method", "[Bar]") {
-  SECTION("Int Method") { REQUIRE_NOTHROW(Bar::staticFunction(42)); }
-  SECTION("Int64_t Method") { REQUIRE_NOTHROW(Bar::staticFunction(int64_t{42})); }
+TEST_CASE("squirrel3 static method", "[squirrel3]") {
+  SECTION("Int Method") { REQUIRE_NOTHROW(squirrel3::staticFunction(42)); }
+  SECTION("Int64_t Method") { REQUIRE_NOTHROW(squirrel3::staticFunction(int64_t{42})); }
 }
 
-TEST_CASE("Bar::Ctor", "[Bar]") {
+TEST_CASE("squirrel3::Ctor", "[squirrel3]") {
   SECTION("Default constructor") {
-    Bar* b = new Bar();
+    Squirrel3* b = new Squirrel3();
     REQUIRE(b != nullptr);
   }
 }
 
-SCENARIO("Bar Int", "[Bar]") {
-  GIVEN("A Bar instance") {
-    Bar bar;
+SCENARIO("squirrel3 Int", "[squirrel3]") {
+  GIVEN("A squirrel3 instance") {
+    Squirrel3 squirrel3;
     WHEN("Setting a value") {
-      REQUIRE_NOTHROW(bar.setInt(42));
-      THEN("The value is updated") { REQUIRE(bar.getInt() == 42); }
+      REQUIRE_NOTHROW(squirrel3.setInt(42));
+      THEN("The value is updated") { REQUIRE(squirrel3.getInt() == 42); }
     }
   }
 }
 
-SCENARIO("Bar Int64", "[Bar]") {
-  GIVEN("A Bar instance") {
-    Bar bar;
+SCENARIO("squirrel3 Int64", "[squirrel3]") {
+  GIVEN("A squirrel3 instance") {
+    Squirrel3 squirrel3;
     WHEN("Setting a value") {
-      REQUIRE_NOTHROW(bar.setInt64(31));
-      THEN("The value is updated") { REQUIRE(bar.getInt64() == 31); }
+      REQUIRE_NOTHROW(squirrel3.setInt64(31));
+      THEN("The value is updated") { REQUIRE(squirrel3.getInt64() == 31); }
     }
   }
 }
 
-TEST_CASE("Bar::operator()", "[Bar]") {
-  SECTION("Debug print") { INFO("Bar: " << Bar()()); }
+TEST_CASE("squirrel3::operator()", "[squirrel3]") {
+  SECTION("Debug print") { INFO("squirrel3: " << squirrel3()()); }
 }
 
-} // namespace bar
+} // namespace squirrel3

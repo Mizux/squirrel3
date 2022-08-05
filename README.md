@@ -5,22 +5,21 @@ Github-CI:<br>
 [![Build Status][github_amd64_docker_status]][github_amd64_docker_link]
 [![Build Status][github_aarch64_docker_status]][github_aarch64_docker_link]
 
-[github_linux_status]: https://github.com/Mizux/cmake-cpp/actions/workflows/amd64_linux.yml/badge.svg
-[github_linux_link]: https://github.com/Mizux/cmake-cpp/actions/workflows/amd64_linux.yml
-[github_macos_status]: https://github.com/Mizux/cmake-cpp/actions/workflows/amd64_macos.yml/badge.svg
-[github_macos_link]: https://github.com/Mizux/cmake-cpp/actions/workflows/amd64_macos.yml
-[github_windows_status]: https://github.com/Mizux/cmake-cpp/actions/workflows/amd64_windows.yml/badge.svg
-[github_windows_link]: https://github.com/Mizux/cmake-cpp/actions/workflows/amd64_windows.yml
-[github_amd64_docker_status]: https://github.com/Mizux/cmake-cpp/actions/workflows/amd64_docker.yml/badge.svg
-[github_amd64_docker_link]: https://github.com/Mizux/cmake-cpp/actions/workflows/amd64_docker.yml
-[github_aarch64_docker_status]: https://github.com/Mizux/cmake-cpp/actions/workflows/aarch64_docker.yml/badge.svg
-[github_aarch64_docker_link]: https://github.com/Mizux/cmake-cpp/actions/workflows/aarch64_docker.yml
+[github_linux_status]: https://github.com/Mizux/squirrel3/actions/workflows/amd64_linux.yml/badge.svg
+[github_linux_link]: https://github.com/Mizux/squirrel3/actions/workflows/amd64_linux.yml
+[github_macos_status]: https://github.com/Mizux/squirrel3/actions/workflows/amd64_macos.yml/badge.svg
+[github_macos_link]: https://github.com/Mizux/squirrel3/actions/workflows/amd64_macos.yml
+[github_windows_status]: https://github.com/Mizux/squirrel3/actions/workflows/amd64_windows.yml/badge.svg
+[github_windows_link]: https://github.com/Mizux/squirrel3/actions/workflows/amd64_windows.yml
+[github_amd64_docker_status]: https://github.com/Mizux/squirrel3/actions/workflows/amd64_docker.yml/badge.svg
+[github_amd64_docker_link]: https://github.com/Mizux/squirrel3/actions/workflows/amd64_docker.yml
+[github_aarch64_docker_status]: https://github.com/Mizux/squirrel3/actions/workflows/aarch64_docker.yml/badge.svg
+[github_aarch64_docker_link]: https://github.com/Mizux/squirrel3/actions/workflows/aarch64_docker.yml
 
 # Introduction
 <nav for="project"> |
 <a href="#requirement">Requirement</a> |
 <a href="#codemap">Codemap</a> |
-<a href="#dependencies">Dependencies</a> |
 <a href="#build">Build</a> |
 <a href="ci/README.md">CI</a> |
 <a href="#appendices">Appendices</a> |
@@ -44,44 +43,13 @@ The project layout is as follow:
 
 * [ci](ci) Root directory for continuous integration.
 
-* [Foo](Foo) Root directory for `Foo` library.
-  * [CMakeLists.txt](Foo/CMakeLists.txt) for `Foo`.
-  * [include](Foo/include) public folder.
-    * [foo](Foo/include/foo)
-      * [Foo.hpp](Foo/include/foo/Foo.hpp)
-  * [src](Foo/src) private folder.
-    * [src/Foo.cpp](Foo/src/Foo.cpp)
-* [Bar](Bar) Root directory for `Bar` library.
-  * [CMakeLists.txt](Bar/CMakeLists.txt) for `Bar`.
-  * [include](Bar/include) public folder.
-    * [bar](Bar/include/bar)
-      * [Bar.hpp](Bar/include/bar/Bar.hpp)
-  * [src](Bar/src) private folder.
-    * [src/Bar.cpp](Bar/src/Bar.cpp)
-* [FooBar](FooBar) Root directory for `FooBar` library.
-  * [CMakeLists.txt](FooBar/CMakeLists.txt) for `FooBar`.
-  * [include](FooBar/include) public folder.
-    * [foobar](FooBar/include/foobar)
-      * [FooBar.hpp](FooBar/include/foobar/FooBar.hpp)
-  * [src](FooBar/src) private folder.
-    * [src/FooBar.cpp](FooBar/src/FooBar.cpp)
-* [FooBarApp](FooBarApp) Root directory for `FooBarApp` executable.
-  * [CMakeLists.txt](FooBarApp/CMakeLists.txt) for `FooBarApp`.
-  * [src](FooBarApp/src) private folder.
-    * [src/main.cpp](FooBarApp/src/main.cpp)
-
-## Dependencies
-To complexify a little, the CMake project is composed of three libraries (Foo, Bar and FooBar)
-with the following dependencies:  
-```sh
-Foo:
-Bar:
-FooBar: PUBLIC Foo PRIVATE Bar
-FooBarApp: PRIVATE FooBar
-```
-
-note: Since `Foo` is a public dependency of `FooBar`, then `FooBarApp` will
-*see* `Foo` inlude directories
+* [squirrel3](squirrel3) Root directory for `squirrel3` library.
+  * [CMakeLists.txt](squirrel3/CMakeLists.txt) for `squirrel3`.
+  * [include](squirrel3/include) public folder.
+    * [squirrel3](squirrel3/include/squirrel3)
+      * [squirrel3.hpp](squirrel3/include/squirrel3/squirrel3.hpp)
+  * [src](squirrel3/src) private folder.
+    * [src/squirrel3.cpp](squirrel3/src/squirrel3.cpp)
 
 ## Build
 To build the C++ project, as usual:
