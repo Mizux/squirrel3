@@ -10,8 +10,7 @@ set_target_properties(sample PROPERTIES
   CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON
   VERSION ${PROJECT_VERSION})
-target_link_libraries(sample PRIVATE
-  Squirrel3::squirrel3)
+target_link_libraries(sample PRIVATE squirrel3::squirrel3)
 
 if(BUILD_TESTING)
   add_test(NAME sample_UT COMMAND sample)
