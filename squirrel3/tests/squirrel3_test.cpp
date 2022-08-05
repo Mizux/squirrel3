@@ -117,8 +117,8 @@ TEST_CASE("Pair Jagged Array usage", "[squirrel3]") {
 }
 
 TEST_CASE("squirrel3 static method", "[squirrel3]") {
-  SECTION("Int Method") { REQUIRE_NOTHROW(squirrel3::staticFunction(42)); }
-  SECTION("Int64_t Method") { REQUIRE_NOTHROW(squirrel3::staticFunction(int64_t{42})); }
+  SECTION("Int Method") { REQUIRE_NOTHROW(Squirrel3::staticFunction(42)); }
+  SECTION("Int64_t Method") { REQUIRE_NOTHROW(Squirrel3::staticFunction(int64_t{42})); }
 }
 
 TEST_CASE("squirrel3::Ctor", "[squirrel3]") {
@@ -149,7 +149,7 @@ SCENARIO("squirrel3 Int64", "[squirrel3]") {
 }
 
 TEST_CASE("squirrel3::operator()", "[squirrel3]") {
-  SECTION("Debug print") { INFO("squirrel3: " << squirrel3()()); }
+  SECTION("Debug print") { INFO("squirrel3: " << Squirrel3()()); }
 }
 
 } // namespace squirrel3
