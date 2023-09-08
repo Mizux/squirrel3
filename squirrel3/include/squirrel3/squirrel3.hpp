@@ -8,10 +8,10 @@ namespace squirrel3 {
  * This based on a given (signed) integer input parameter `n` and optional
  * `seed`.  Kind of like looking up a value in an infinitely large
  * non-existent table of previously generated random numbers.
- * @param[in] n position.
- * @param[in] seed seed.
+ * @param[in] n value.
+ * @param[in] seed optional seed.
  * @return A random unsigned 32bits number.*/
-inline std::uint32_t squirrel3(std::uint32_t n, std::uint32_t seed) {
+inline std::uint32_t squirrel3(std::uint32_t n, std::uint32_t seed=0) {
   // The base bit-noise constants were crafted to have distinctive and interesting
   // bits, and have so far produced excellent experimental test results.
   constexpr std::uint64_t NOISE1 = 0xb5297a4d; // 0b0110'1000'1110'0011'0001'1101'1010'0100
@@ -52,15 +52,15 @@ get3d(std::uint32_t x = 0, std::uint32_t y = 0, std::uint32_t z = 0, std::uint32
 //! @{
 
 inline float get1df(std::uint32_t x = 0, std::uint32_t seed = 0) {
-  return get1d(x, seed) / float{0xFFFFFFFF};
+  return get1d(x, seed) / double{0xFFFFFFFF};
 }
 
 inline float get2df(std::uint32_t x = 0, std::uint32_t y = 0, std::uint32_t seed = 0) {
-  return get2d(x, y, seed) / float{0xFFFFFFFF};
+  return get2d(x, y, seed) / double{0xFFFFFFFF};
 }
 
 inline float get3df(std::uint32_t x = 0, std::uint32_t y = 0, std::uint32_t z = 0, std::uint32_t seed = 0) {
-  return get3d(x, y, z, seed) / float{0xFFFFFFFF};
+  return get3d(x, y, z, seed) / double{0xFFFFFFFF};
 }
 
 //! @}

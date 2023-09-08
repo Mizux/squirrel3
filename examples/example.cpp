@@ -1,13 +1,17 @@
 #include <iostream>
+#include <string>
 
-#include <squirrel3/squirrel3.hpp>
+#include "squirrel3/squirrel3.hpp"
 
 int main(int /*argc*/, char** /*argv*/) {
-  squirrel3::freeFunction(0);
-  std::cout << std::endl;
+  auto value = squirrel3::squirrel3(0, 42);
+  std::cout << std::to_string(value) << std::endl;
 
-  squirrel3::Squirrel3::staticFunction(int{0});
-  std::cout << std::endl;
+  value = squirrel3::squirrel3(42, 42);
+  std::cout << std::to_string(value) << std::endl;
+
+  value = squirrel3::squirrel3(0, 42);
+  std::cout << std::to_string(value) << std::endl;
 
   return 0;
 }
