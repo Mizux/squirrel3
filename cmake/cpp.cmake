@@ -1,8 +1,3 @@
-enable_language(CXX)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
 # Check primitive types
 option(CHECK_TYPE "Check primitive type size" OFF)
 if(CHECK_TYPE)
@@ -33,24 +28,6 @@ if(CHECK_TYPE)
   cmake_pop_check_state()
 endif()
 
-if(BUILD_TESTING)
-  include(FetchContent)
-  #FetchContent_Declare(
-  #  googletest
-  #  GIT_REPOSITORY https://github.com/google/googletest.git
-  #  GIT_TAG master)
-  #set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-  #FetchContent_MakeAvailable(googletest)
-  FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG devel
-    GIT_SHALLOW TRUE
-    GIT_PROGRESS TRUE
-  )
-  FetchContent_MakeAvailable(Catch2)
-endif()
-
 include(GNUInstallDirs)
 
 # add_cpp_test()
@@ -77,7 +54,7 @@ function(add_cpp_test FILE_NAME)
   target_include_directories(${TEST_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
   target_compile_features(${TEST_NAME} PRIVATE cxx_std_17)
   target_link_libraries(${TEST_NAME} PRIVATE
-    Catch2 Catch2WithMain
+    GTest::gtest_main
     ${PROJECT_NAMESPACE}::squirrel3)
 
   if(BUILD_TESTING)
