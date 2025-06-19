@@ -13,11 +13,11 @@ jobs:
     strategy:
       matrix:
         targets: [
-          [arm-linux-gnueabihf],
-          [armv8l-linux-gnueabihf],
-          [arm-linux-gnueabi],
-          [armeb-linux-gnueabihf],
-          [armeb-linux-gnueabi]
+          # https://go.dev/doc/install/source#environment
+          arm, # alias to armv7-eabihf
+          armeb, # alias to armv7eb-eabihf
+          armv7-eabihf, # bootlin
+          armebv7-eabihf #bootlin
         ]
       fail-fast: false
     name: Linux•Toolchain ${{matrix.targets}}
