@@ -4,7 +4,7 @@ Github-CI:<br>
 [![Build Status][amd64_windows_status]][amd64_windows_link]<br>
 
 [![Build Status][amd64_docker_status]][amd64_docker_link]
-[![Build Status][aarch64_docker_status]][aarch64_docker_link]
+[![Build Status][arm64_docker_status]][arm64_docker_link]
 
 [amd64_linux_status]: ./../../actions/workflows/amd64_linux.yml/badge.svg
 [amd64_linux_link]: ./../../actions/workflows/amd64_linux.yml
@@ -15,8 +15,8 @@ Github-CI:<br>
 
 [amd64_docker_status]: ./../../actions/workflows/amd64_docker.yml/badge.svg
 [amd64_docker_link]: ./../../actions/workflows/amd64_docker.yml
-[aarch64_docker_status]: ./../../actions/workflows/aarch64_docker.yml/badge.svg
-[aarch64_docker_link]: ./../../actions/workflows/aarch64_docker.yml
+[arm64_docker_status]: ./../../actions/workflows/arm64_docker.yml/badge.svg
+[arm64_docker_link]: ./../../actions/workflows/arm64_docker.yml
 
 # Introduction
 <nav for="project"> |
