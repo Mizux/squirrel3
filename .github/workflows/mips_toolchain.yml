@@ -1,30 +1,36 @@
+# ref: https://toolchains.bootlin.com/
 name: mips Toolchain
 
-on:
-  push:
-  pull_request:
-  schedule:
-    # min hours day(month) month day(week)
-    - cron: '0 0 7,22 * *'
+on: [push, pull_request, workflow_dispatch]
 
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+# Building using the github runner environement directly.
 jobs:
-  # Building using the github runner environement directly.
   mips:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         targets: [
-          [mips32],
-          [mips32el],
-          [mips64],
-          [mips64el]
+          # https://go.dev/doc/install/source#environment
+          mips32,
+          mips32el,
+          mips64,
+          mips64el
         ]
       fail-fast: false
-    env:
-      TARGET: ${{ matrix.targets[0] }}
+    name: Linux•Toolchain ${{matrix.targets}}
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: make --directory=ci ${TARGET}_build
-    - name: Test
-      run: make --directory=ci ${TARGET}_test
+    - uses: actions/checkout@v4
+    - name: Build env stage
+      run: make --directory=ci toolchain_${{matrix.targets}}_env
+    - name: Build devel stage
+      run: make --directory=ci toolchain_${{matrix.targets}}_devel
+    - name: Build toolchain stage
+      run: make --directory=ci toolchain_${{matrix.targets}}_toolchain
+    - name: Build build stage
+      run: make --directory=ci toolchain_${{matrix.targets}}_build
+    - name: Build Test stage
+      run: make --directory=ci toolchain_${{matrix.targets}}_test
