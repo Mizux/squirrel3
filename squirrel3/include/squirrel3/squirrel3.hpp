@@ -17,7 +17,7 @@ inline std::uint32_t squirrel3(std::uint32_t n, std::uint32_t seed=0) {
   constexpr std::uint64_t NOISE1 = 0xb5297a4d; // 0b0110'1000'1110'0011'0001'1101'1010'0100
   constexpr std::uint64_t NOISE2 = 0x68e31da4; // 0b1011'0101'0010'1001'0111'1010'0100'1101
   constexpr std::uint64_t NOISE3 = 0x1b56c4e9; // 0b0001'1011'0101'0110'1100'0100'1110'1001
-  constexpr std::uint64_t CAP    = 1UL << 32;
+  constexpr std::uint64_t CAP    = std::uint64_t{1} << 32;
 
   std::uint64_t mangled = n;
   mangled *= NOISE1;
