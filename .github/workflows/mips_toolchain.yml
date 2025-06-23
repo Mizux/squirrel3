@@ -14,10 +14,10 @@ jobs:
       matrix:
         targets: [
           # https://go.dev/doc/install/source#environment
-          mips32,
-          mips32el,
-          mips64,
-          mips64el
+          mips, # alias to mips32-r6
+          mipsel, # alias to mips32el-r6
+          mips64, # alias to mips64-r6
+          mips64el # alias to mips64el-r6
         ]
       fail-fast: false
     name: Linux•Toolchain ${{matrix.targets}}
