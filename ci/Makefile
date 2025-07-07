@@ -108,6 +108,20 @@ help:
 	@echo -e "\te.g. 'make toolchain_mips64_build'"
 	@echo -e "\te.g. 'make toolchain_arm64_test'"
 	@echo
+	@echo -e "\tBuild for web using emscripten."
+	@echo -e "\t${BOLD}web_<web_stage>${RESET}: build the emscripten <web_stage>."
+	@echo -e "\t${BOLD}save_web_<web_stage>${RESET}: Save the <web_stage> docker image."
+	@echo -e "\t${BOLD}sh_web_<web_stage>${RESET}: run a container using the <web_stage> docker image specified (debug purpose)."
+	@echo -e "\t${BOLD}clean_web_<web_stage>${RESET}: Remove cache and docker image."
+	@echo -e "\t${BOLD}clean_web${RESET}: Remove ALL cache and docker image."
+	@echo
+	@echo -e "\tWith ${BOLD}<web_stage>${RESET}:"
+	@echo -e "\t\t${BOLD}env${RESET}"
+	@echo -e "\t\t${BOLD}devel${RESET}"
+	@echo -e "\t\t${BOLD}build${RESET}"
+	@echo -e "\t\t${BOLD}test${RESET}"
+	@echo -e "\te.g. 'make web_build'"
+	@echo
 	@echo -e "\tBuild using a vagrant machine."
 	@echo -e "\t${BOLD}<vm>_<vms_stage>${RESET}: build the vagrant <vm> virtual machine."
 	@echo -e "\t${BOLD}sh_<vm>_<lang>${RESET}: ssh to the vagrant machine specified (debug purpose)."
@@ -355,6 +369,46 @@ $(foreach stage,$(TOOLCHAIN_STAGES),$(eval $(call toolchain-stage-target,$(stage
 clean_toolchains: $(addprefix clean_toolchain_, $(TOOLCHAIN_STAGES))
 	-rmdir $(addprefix cache/, $(TOOLCHAIN_TARGETS))
 
+#########
+## WEB ##
+#########
+WEB_STAGES := env devel build test
+
+define make-web-stage-target =
+#$$(info STAGE: $1)
+#$$(info Create target: web_$1.)
+.PHONY: web_$1
+web_$1: docker/web/Dockerfile
+	#@docker image rm -f ${IMAGE}:web_$1 2>/dev/null
+	${DOCKER_BUILD_CMD} --target=$1 --tag ${IMAGE}:web_$1 -f $$< ..
+
+#$$(info Create target: save_web_$1 (debug).)
+.PHONY: save_web_$1
+save_web_$1: cache/web/docker_$1.tar
+cache/web/docker_$1.tar: web_$1
+	@rm -f $$@
+	mkdir -p cache/web
+	docker save ${IMAGE}:web_$1 -o $$@
+
+#$$(info Create target: sh_web_$1 (debug).)
+.PHONY: sh_web_$1
+sh_web_$1: web_$1
+	${DOCKER_RUN_CMD} -it --name ${PROJECT}_web_$1 ${IMAGE}:web_$1
+
+#$$(info Create target: clean_web_$1.)
+.PHONY: clean_web_$1
+clean_web_$1:
+	docker image rm -f ${IMAGE}:web_$1 2>/dev/null
+	rm -f cache/web/docker_$1.tar
+endef
+
+$(foreach stage,$(WEB_STAGES),$(eval $(call make-web-stage-target,$(stage))))
+
+## MERGE ##
+.PHONY: clean_web
+clean_web: $(addprefix clean_web_, $(WEB_STAGES))
+	rm -f cache/web
+
 #############
 ## VAGRANT ##
 #############
@@ -387,7 +441,7 @@ $(clean_vms_targets): clean_%: vagrant/%/Vagrantfile
 ## CLEAN ##
 ###########
 .PHONY: clean
-clean: clean_all clean_platforms clean_toolchains clean_vms
+clean: clean_all clean_platforms clean_toolchains clean_web clean_vms
 	docker container prune -f
 	docker image prune -f
 	-rmdir cache
