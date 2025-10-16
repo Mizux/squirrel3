@@ -83,7 +83,7 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 include(CTest)
 
 option(BUILD_absl "Build the abseil-cpp dependency Library" ON)
-message(STATUS "Build abseil-cpp: ${BUILD_absl}")
+message(STATUS "Build absl: ${BUILD_absl}")
 
 option(BUILD_re2 "Build the RE2 dependency Library" ON)
 message(STATUS "Build re2: ${BUILD_re2}")

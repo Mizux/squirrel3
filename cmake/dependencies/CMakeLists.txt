@@ -33,6 +33,16 @@ endif()
 if(BUILD_absl)
   message(CHECK_START "Fetching Abseil-cpp")
   list(APPEND CMAKE_MESSAGE_INDENT "  ")
+  FetchContent_Declare(
+    absl
+    GIT_REPOSITORY "https://github.com/abseil/abseil-cpp.git"
+    GIT_TAG "20250814.1"
+    GIT_SHALLOW TRUE
+    UPDATE_COMMAND git reset --hard
+    PATCH_COMMAND git apply --ignore-whitespace
+    "${CMAKE_CURRENT_LIST_DIR}/../../patches/abseil-cpp-20250814.1.patch"
+    OVERRIDE_FIND_PACKAGE
+  )
   set(ABSL_USE_SYSTEM_INCLUDES ON)
   # We want Abseil to declare what C++ standard it was compiled with.
   set(ABSL_PROPAGATE_CXX_STD ON)
@@ -40,15 +50,9 @@ if(BUILD_absl)
   # subproject. Otherwise the install rules in this project break.
   set(ABSL_ENABLE_INSTALL ON)
   set(ABSL_BUILD_TESTING OFF)
-  FetchContent_Declare(
-    absl
-    GIT_REPOSITORY "https://github.com/abseil/abseil-cpp.git"
-    GIT_TAG "20250512.0"
-    GIT_SHALLOW TRUE
-    PATCH_COMMAND git apply --ignore-whitespace
-    "${CMAKE_CURRENT_LIST_DIR}/../../patches/abseil-cpp-20250512.0.patch"
-    OVERRIDE_FIND_PACKAGE
-  )
+  set(ABSL_BUILD_TEST_HELPERS OFF)
+  set(ABSL_USE_EXTERNAL_GOOGLETEST ON)
+  set(ABSL_FIND_GOOGLETEST OFF)
   FetchContent_MakeAvailable(absl)
   list(POP_BACK CMAKE_MESSAGE_INDENT)
   message(CHECK_PASS "fetched")
