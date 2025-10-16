@@ -78,15 +78,16 @@ include(ccache)
 # Build deps
 option(BUILD_ZLIB "Build the ZLIB dependency Library" ON)
 message(STATUS "Build ZLIB: ${BUILD_ZLIB}")
-# Disable CTest targets
-set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
-include(CTest)
 
 option(BUILD_absl "Build the abseil-cpp dependency Library" ON)
 message(STATUS "Build absl: ${BUILD_absl}")
 
 option(BUILD_re2 "Build the RE2 dependency Library" ON)
 message(STATUS "Build re2: ${BUILD_re2}")
+
+# Disable CTest targets
+set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
+include(CTest)
 
 if(BUILD_TESTING)
   option(BUILD_googletest "Build googletest" ON)
