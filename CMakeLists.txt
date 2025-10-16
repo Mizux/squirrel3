@@ -1,11 +1,11 @@
 # This file is just an orchestration
-cmake_minimum_required(VERSION 3.16..3.31)
+cmake_minimum_required(VERSION 3.24..3.31)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Enable output of compile commands during generation.
 option(CMAKE_EXPORT_COMPILE_COMMANDS "Export compile command" ON)
 
-project(Squirrel3 VERSION 1.0 LANGUAGES CXX)
+project(Squirrel3 VERSION 1.0.0 LANGUAGES C CXX)
 set(PROJECT_NAMESPACE squirrel3)
 message(STATUS "${PROJECT_NAME} version: ${PROJECT_VERSION}")
 #message(STATUS "major: ${PROJECT_VERSION_MAJOR}")
@@ -89,6 +89,9 @@ else()
 endif()
 message(STATUS "Build googletest: ${BUILD_googletest}")
 
+option(BUILD_EXAMPLES "Build examples" ON)
+message(STATUS "Build examples: ${BUILD_EXAMPLES}")
+
 # Find system deps
 include(system_deps)
 
@@ -100,7 +103,4 @@ include(check_deps)
 
 include(cpp)
 
-## Examples
-option(BUILD_EXAMPLES "Build examples" ON)
-message(STATUS "Build examples: ${BUILD_EXAMPLES}")
 add_subdirectory(examples)
