@@ -39,16 +39,16 @@ endif()
 if(BUILD_re2)
   message(CHECK_START "Fetching re2")
   list(APPEND CMAKE_MESSAGE_INDENT "  ")
-  set(RE2_BUILD_TESTING OFF)
   FetchContent_Declare(
     re2
     GIT_REPOSITORY "https://github.com/google/re2.git"
-    GIT_TAG "2024-07-02"
+    GIT_TAG "2025-08-12"
     GIT_SHALLOW TRUE
-    # Fix INSTALL_RPATH in library
+    UPDATE_COMMAND git reset --hard
     PATCH_COMMAND git apply --ignore-whitespace
-    "${CMAKE_CURRENT_LIST_DIR}/../../patches/re2-2024-07-02.patch"
+    "${CMAKE_CURRENT_LIST_DIR}/../../patches/re2-2025-08-12.patch"
   )
+  set(RE2_BUILD_TESTING OFF)
   FetchContent_MakeAvailable(re2)
   list(POP_BACK CMAKE_MESSAGE_INDENT)
   message(CHECK_PASS "fetched")
