@@ -8,6 +8,11 @@ find_package(Threads REQUIRED)
 # distro package already provide a CMake config file...
 set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 
+# libprotobuf force us to depends on ZLIB::ZLIB target
+if(NOT BUILD_ZLIB AND NOT TARGET ZLIB::ZLIB)
+ find_package(ZLIB REQUIRED)
+endif()
+
 if(NOT BUILD_absl AND NOT TARGET absl::base)
   find_package(absl REQUIRED)
 endif()

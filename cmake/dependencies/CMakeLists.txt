@@ -7,6 +7,27 @@ set(BUILD_TESTING OFF)
 set(CMAKE_Fortran_COMPILER OFF)
 
 # ##############################################################################
+# ZLIB
+# ##############################################################################
+if(BUILD_ZLIB)
+  message(CHECK_START "Fetching ZLIB")
+  list(APPEND CMAKE_MESSAGE_INDENT "  ")
+  FetchContent_Declare(
+    ZLIB
+    GIT_REPOSITORY "https://github.com/madler/ZLIB.git"
+    GIT_TAG "v1.3.1"
+    GIT_SHALLOW TRUE
+    UPDATE_COMMAND git reset --hard
+    PATCH_COMMAND git apply --ignore-whitespace
+    "${CMAKE_CURRENT_LIST_DIR}/../../patches/ZLIB-v1.3.1.patch"
+  )
+  set(ZLIB_BUILD_EXAMPLES OFF)
+  FetchContent_MakeAvailable(ZLIB)
+  list(POP_BACK CMAKE_MESSAGE_INDENT)
+  message(CHECK_PASS "fetched")
+endif()
+
+# ##############################################################################
 # ABSEIL-CPP
 # ##############################################################################
 if(BUILD_absl)
