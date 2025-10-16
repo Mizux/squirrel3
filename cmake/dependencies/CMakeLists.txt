@@ -65,12 +65,13 @@ if(BUILD_googletest)
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_TAG v1.17.0
     GIT_SHALLOW TRUE
+    UPDATE_COMMAND git reset --hard
     PATCH_COMMAND git apply --ignore-whitespace
     "${CMAKE_CURRENT_LIST_DIR}/../../patches/googletest-v1.17.0.patch"
   )
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-  set(INSTALL_GTEST OFF)
   set(GTEST_HAS_ABSL ON)
+  set(INSTALL_GTEST OFF)
   FetchContent_MakeAvailable(googletest)
   list(POP_BACK CMAKE_MESSAGE_INDENT)
   message(CHECK_PASS "fetched")
