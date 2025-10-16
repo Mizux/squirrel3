@@ -28,8 +28,9 @@ if(CHECK_TYPE)
   cmake_pop_check_state()
 endif()
 
-include(GNUInstallDirs)
-
+################
+##  C++ Test  ##
+################
 # add_cpp_test()
 # CMake function to generate and build C++ test.
 # Parameters:
@@ -65,27 +66,10 @@ endfunction()
 
 add_subdirectory(squirrel3)
 
-# Install
-install(EXPORT ${PROJECT_NAME}Targets
-  NAMESPACE ${PROJECT_NAMESPACE}::
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-  COMPONENT Devel)
-include(CMakePackageConfigHelpers)
-configure_package_config_file(cmake/${PROJECT_NAME}Config.cmake.in
-  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
-  NO_SET_AND_CHECK_MACRO
-  NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-write_basic_package_version_file(
-  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-  COMPATIBILITY SameMajorVersion)
-install(
-  FILES
-  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
-  COMPONENT Devel)
 
+###################
+##  C++ Example  ##
+###################
 # add_cpp_example()
 # CMake function to generate and build C++ example.
 # Parameters:
@@ -119,3 +103,31 @@ function(add_cpp_example FILE_NAME)
   endif()
   message(STATUS "Configuring example ${FILE_NAME}: ...DONE")
 endfunction()
+
+###################
+## CMake Install ##
+###################
+include(GNUInstallDirs)
+#include(GenerateExportHeader)
+#GENERATE_EXPORT_HEADER(${PROJECT_NAME})
+#install(FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}_export.h
+#  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(EXPORT ${PROJECT_NAME}Targets
+  NAMESPACE ${PROJECT_NAMESPACE}::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+  COMPONENT Devel)
+include(CMakePackageConfigHelpers)
+configure_package_config_file(cmake/${PROJECT_NAME}Config.cmake.in
+  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+write_basic_package_version_file(
+  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  COMPATIBILITY SameMajorVersion)
+install(
+  FILES
+  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+  COMPONENT Devel)
